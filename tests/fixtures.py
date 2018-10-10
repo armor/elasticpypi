@@ -1,7 +1,7 @@
 from basicauth import encode
 from elasticpypi.config import config
 
-simple_html = '<html>\n  <head>\n    <title>Simple Index</title>\n  </head>\n  <body>\n    \n    <a href="/dev/simple/x/">x</a><br/>\n    \n    <a href="/dev/simple/y/">y</a><br/>\n    \n    <a href="/dev/simple/z/">z</a><br/>\n    \n  </body>\n</html>'  # noqa [E501]
+simple_html = '<html>\n  <head>\n    <title>Package Index</title>\n  </head>\n  <body>\n    \n    <a href="/mgmt/packages/x/">x</a><br/>\n    \n    <a href="/mgmt/packages/y/">y</a><br/>\n    \n    <a href="/mgmt/packages/z/">z</a><br/>\n    \n  </body>\n</html>'  # noqa [E501]
 
 links_html = '<html>\n  <head>\n  <title>Links for x</title>\n  </head>\n  <body>\n    <h1>Links for x</h1>\n    \n    <a href="/dev/packages/x-0.tar.gz">x-0.tar.gz</a></br>\n    \n    <a href="/dev/packages/x-1.tar.gz">x-1.tar.gz</a></br>\n    \n  </body>\n</html>'  # noqa [E501]
 

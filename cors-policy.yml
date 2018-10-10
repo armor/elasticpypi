@@ -1,0 +1,12 @@
+CORS_POLICY:
+  origin: '*'
+  headers:
+    - Accept
+    - Authorization
+    - Content-Type
+    - X-Account-Context
+    - X-Amz-Date
+    - X-Amz-Security-Token
+    - X-Amz-User-Agent
+    - X-Api-Key
+  allowCredentials: true

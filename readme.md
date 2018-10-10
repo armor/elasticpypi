@@ -65,7 +65,7 @@ provider:
 
 Based on the output of the deploy command or via the AWS console add the url to your pip conf.
 
-The url should be something like `https://blah.execute-api.region.amazonaws.com/dev/simple`.
+The url should be something like `https://blah.execute-api.region.amazonaws.com/mgmt/packages`.
 
 Make sure you add a trailing slash as required in the PEP.
 

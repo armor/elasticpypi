@@ -15,7 +15,7 @@ class ElasticPypiTests(TestCase):
         return app
 
     @mock_dynamodb2
-    def test_get_simple_x_200_from_dynamodb(self):
+    def test_get_packages_x_200_from_dynamodb(self):
         mock_dynamodb_table.make_table([
             {
                 'package_name': 'z-0.tar.gz',
@@ -39,7 +39,7 @@ class ElasticPypiTests(TestCase):
                 'filename': 'x-1.tar.gz'
             }
         ])
-        response = self.client.get('/simple/x/')
+        response = self.client.get('/packages/x/')
         self.assert200(response)
         self.assertEqual(response.data.decode(), fixtures.links_html)
 
@@ -58,6 +58,6 @@ class ElasticPypiTests(TestCase):
                 'filename': 'y-0.tar.gz'
             }
         ])
-        response = self.client.get('/simple/curses/')
+        response = self.client.get('/packages/curses/')
         self.assert200(response)
         self.assertEqual(response.data.decode(), fixtures.wheel_links_html)

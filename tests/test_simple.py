@@ -10,14 +10,14 @@ from tests import mock_dynamodb_table
 TABLE = config['table']
 
 
-class SimpleTests(TestCase):
+class PackagesTests(TestCase):
 
     def create_app(self):
         app.config['TESTING'] = True
         return app
 
     @mock_dynamodb2
-    def test_get_simple_200_from_dynamodb(self):
+    def test_get_packages_200_from_dynamodb(self):
         mock_dynamodb_table.make_table(items=[
             {
                 'package_name': 'z.zip',
@@ -37,13 +37,13 @@ class SimpleTests(TestCase):
                 'version': '0'
             }
         ])
-        response = self.client.get('/simple/')
+        response = self.client.get('/packages/')
         self.assert200(response)
         self.assertEqual(response.data.decode(), fixtures.simple_html)
 
     @mock_dynamodb2
     @mock.patch('elasticpypi.s3.upload')
-    def test_post_simple_200(self, upload):
+    def test_post_packages_200(self, upload):
         mock_dynamodb_table.make_table(items=[
             {
                 'package_name': 'py-0.0.1.tar.gz',
@@ -53,7 +53,7 @@ class SimpleTests(TestCase):
             }
         ])
         f = io.BytesIO('hello'.encode('utf-8'))
-        response = self.client.post('/simple/', data={'content': (f, 'py-0.1.2.tar.gz')})
+        response = self.client.post('/packages/', data={'content': (f, 'py-0.1.2.tar.gz')})
         self.assertStatus(response, 200)
         upload.assert_called_with('py-0.1.2.tar.gz', mock.ANY)
         f.close()
@@ -61,7 +61,7 @@ class SimpleTests(TestCase):
     @mock.patch('elasticpypi.s3.upload')
     def test_cannot_post_file_with_slash_in_the_file_name(self, upload):
         f = io.BytesIO('hello'.encode('utf-8'))
-        response = self.client.post('/simple/', data={'content': (f, '../py-0.1.2.tar.gz')})
+        response = self.client.post('/packages/', data={'content': (f, '../py-0.1.2.tar.gz')})
         self.assert400(response)
         assert not upload.called
         f.close()
@@ -78,7 +78,7 @@ class SimpleTests(TestCase):
             }
         ])
         f = io.BytesIO('hello'.encode('utf-8'))
-        response = self.client.post('/simple/', data={'content': (f, 'py-0.1.2.tar.gz')})
+        response = self.client.post('/packages/', data={'content': (f, 'py-0.1.2.tar.gz')})
         self.assertEqual(response.status_code, 409)
         assert not upload.called
         f.close()
@@ -97,7 +97,7 @@ class SimpleTests(TestCase):
         ])
         config.return_value = {'OVERWRITE': 'true'}
         f = io.BytesIO('hello'.encode('utf-8'))
-        response = self.client.post('/simple/', data={'content': (f, 'py-0.1.2.tar.gz')})
+        response = self.client.post('/packages/', data={'content': (f, 'py-0.1.2.tar.gz')})
         self.assertStatus(response, 200)
         upload.assert_called_with('py-0.1.2.tar.gz', mock.ANY)
         f.close()
